@@ -1,96 +1,58 @@
-# EcoTwin — Smart Lab Waste Bin (App + Dashboard)
+# EcoTwin — Industrial Waste Accountability System
 
-A runnable prototype based on the EcoTwin Stage 2 design specification.
+## Overview
 
-## Included
-- Responsive web dashboard with bin status, deposits, alerts, storage-age monitoring, and dispatch reconciliation.
-- FastAPI backend with SQLite persistence for local testing.
-- Demo deposit endpoint to simulate a load-cell event.
-- CSV export for deposit records.
-- Seeded demo data so the dashboard is populated on first run.
+EcoTwin is a proposed hardware and software system for improving the traceability, monitoring, and accountability of industrial liquid waste.
 
-## Important prototype boundary
-This is software-only demo mode. It does **not** connect to an ESP32-S3, HX711 load cell, lid switch, MQTT broker, e-paper display, or production PostgreSQL database yet. Deposit events are simulated through the dashboard/API. Do not use the demo data for actual hazardous-waste compliance or safety decisions.
+The project aims to help track waste quantity and basic quality parameters, record waste-handling activities, and improve transparency throughout the waste-management process.
 
-## Requirements
-- Python 3.10+
-- Node.js 18+
+## Problem Statement
 
-## 1. Start the backend
-Open a terminal in this folder:
+Industrial liquid waste can pose environmental risks when it is inadequately treated, transported, or disposed of. Limited visibility into waste handling can make independent verification and accountability difficult.
 
-```bash
-cd backend
-python -m venv .venv
-```
+EcoTwin proposes a system that combines physical measurement, digital recordkeeping, and waste-traceability features.
 
-Windows:
-```powershell
-.venv\Scripts\Activate.ps1
-```
+## Proposed System
 
-Linux/macOS:
-```bash
-source .venv/bin/activate
-```
+1. **Waste collection tank:** Collects liquid waste at a designated factory or collection point.
+2. **Weight measurement:** A load-cell-based system is proposed to estimate the quantity of collected waste.
+3. **Quality monitoring:** Sensors such as pH sensors can be incorporated to measure selected waste characteristics.
+4. **Electronics enclosure:** Houses the proposed measurement and processing electronics.
+5. **Traceability dashboard:** A planned software interface for displaying measurements and waste-handling records.
+6. **Waste reuse assessment:** A proposed feature to identify potential opportunities for reuse by suitable industrial processes.
 
-Then:
-```bash
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
+## CAD Design
 
-API: http://127.0.0.1:8000  
-API docs: http://127.0.0.1:8000/docs  
-Health check: http://127.0.0.1:8000/health
+The Fusion 360 design includes a tank, lid, funnel, support platform, load cell representation, base, electronics enclosure, PCB representation, spacers, pole, and feet.
 
-## 2. Start the frontend
-Open a second terminal:
+The CAD assembly represents the proposed physical arrangement of the system.
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+## Current Project Status
 
-Open the local URL printed by Vite (normally http://localhost:5173).
+- Fusion 360 CAD assembly created.
+- Major structural and enclosure components represented.
+- Electronics enclosure and PCB representation included.
+- Hardware integration and validation remain subject to further development.
 
-## Features to test
-1. Click **Simulate deposit** to create a demo deposit event.
-2. Filter the deposit table by bin or status.
-3. Use **Export CSV** to download deposit records.
-4. Add a dispatch weight from the Dispatch reconciliation panel.
-5. Review storage-age alerts for bins approaching 75/85/90 days.
-6. Open API docs to try endpoints directly.
+> **Status note:** CAD representations do not establish that the corresponding hardware or software is operational. Sensor integration, calibration, data acquisition, dashboard connectivity, and waste-traceability functions must be validated separately.
 
-## GitHub
-Create an empty repository on GitHub, then from this folder:
+## Future Work
 
-```bash
-git init
-git add .
-git commit -m "Build EcoTwin dashboard prototype"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-git push -u origin main
-```
+- Integrate and calibrate the load cell.
+- Integrate a suitable pH sensor and measurement circuit.
+- Develop reliable data acquisition and storage.
+- Build the waste-traceability dashboard.
+- Add QR-based identification and handling records.
+- Evaluate waste reuse opportunities using appropriate technical and regulatory criteria.
+- Conduct controlled experiments and validate measurement accuracy.
+- Evaluate enclosure sealing, material compatibility, and operational safety.
 
-Replace the remote URL with your own repository URL. Never commit API keys, passwords, or private credentials.
+## Project Files
 
-## API overview
-- `GET /health`
-- `GET /api/summary`
-- `GET /api/bins`
-- `GET /api/deposits`
-- `POST /api/deposits/simulate`
-- `GET /api/alerts`
-- `GET /api/dispatches`
-- `POST /api/dispatches`
-- `GET /api/deposits/export.csv`
+- `docs/CAD/ecotwin_final.f3z` — Fusion 360 assembly archive.
+- `screenshots/` — CAD assembly screenshots, if included.
+- `README.md` — Project overview and documentation.
 
-## Next integration steps
-1. Replace simulated events with MQTT/TLS messages from the ESP32-S3 firmware.
-2. Add per-device credentials and authentication.
-3. Migrate local SQLite to PostgreSQL for multi-user deployments.
-4. Implement role-based access, audit logs, backup, and deployment hardening.
-5. Validate weight calibration and alert logic against real bench tests.
+## Disclaimer
+
+This project is a design-stage prototype concept. Its measurements, traceability mechanisms, and environmental benefits require implementation and validation before real-world deployment.
